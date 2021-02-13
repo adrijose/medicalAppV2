@@ -73,12 +73,12 @@ public class PacienteRequest extends UsuarioRequest implements Request {
 
     @Override
     public String toString() {
-        return "PacienteRequest{" +
+        return "{" +
                 super.toString() +
-                ", nns='" + nns + '\'' +
-                ", numTarjeta='" + numTarjeta + '\'' +
-                ", telefono='" + telefono + '\'' +
-                ", direccion='" + direccion + '\'' +
+                ", nns:'" + nns + '\'' +
+                ", numTarjeta:'" + numTarjeta + '\'' +
+                ", telefono:'" + telefono + '\'' +
+                ", direccion:'" + direccion + '\'' +
                 '}';
     }
 }

@@ -54,4 +54,12 @@ public class UsuarioRequest implements Response {
     public int hashCode() {
         return Objects.hash(nombre, apellidos, usuario, clave);
     }
+
+    @Override
+    public String toString() {
+        return  " nombre:'" + nombre + '\'' +
+                ", apellidos:'" + apellidos + '\'' +
+                ", usuario:'" + usuario + '\'' +
+                ", clave:'" + clave + '\'';
+    }
 }

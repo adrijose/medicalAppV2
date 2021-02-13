@@ -29,6 +29,12 @@ public class PacienteController {
 
     @PostMapping
     public ResponseEntity<?> create (@RequestBody PacienteRequest paciente){
-        return ResponseEntity.status(HttpStatus.CREATED).body(pacienteService.save(paciente));
+        try {
+            PacienteResponse response = pacienteService.save(paciente);
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        }
+        catch (Exception ex) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 }
