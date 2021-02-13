@@ -1,6 +1,6 @@
 package com.adritec96.apiCites.dto;
 
-import com.adritec96.apiCites.model.Diagnostico;
+import com.adritec96.apiCites.model.entity.Diagnostico;
 
 
 public class DiagnosticoResponse implements Response {

@@ -2,11 +2,11 @@ package com.adritec96.apiCites.services;
 
 import com.adritec96.apiCites.dto.CitaRequest;
 import com.adritec96.apiCites.dto.CitaResponse;
-import com.adritec96.apiCites.model.Cita;
+import com.adritec96.apiCites.model.entity.Cita;
 import com.adritec96.apiCites.repository.CitaRepository;
-import com.adritec96.apiCites.model.Medico;
+import com.adritec96.apiCites.model.entity.Medico;
 import com.adritec96.apiCites.repository.MedicoRepository;
-import com.adritec96.apiCites.model.Paciente;
+import com.adritec96.apiCites.model.entity.Paciente;
 import com.adritec96.apiCites.repository.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

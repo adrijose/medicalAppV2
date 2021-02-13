@@ -1,6 +1,6 @@
 package com.adritec96.apiCites.dto;
 
-import com.adritec96.apiCites.model.Medico;
+import com.adritec96.apiCites.model.entity.Medico;
 
 public class MedicoRequest extends UsuarioRequest implements Request {
     private String ncol;

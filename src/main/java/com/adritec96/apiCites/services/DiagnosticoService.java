@@ -1,10 +1,10 @@
 package com.adritec96.apiCites.services;
 
-import com.adritec96.apiCites.model.Cita;
+import com.adritec96.apiCites.model.entity.Cita;
 import com.adritec96.apiCites.repository.CitaRepository;
 import com.adritec96.apiCites.dto.DiagnosticoRequest;
 import com.adritec96.apiCites.dto.DiagnosticoResponse;
-import com.adritec96.apiCites.model.Diagnostico;
+import com.adritec96.apiCites.model.entity.Diagnostico;
 import com.adritec96.apiCites.repository.DiagnosticoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

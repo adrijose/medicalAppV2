@@ -1,7 +1,7 @@
 package com.adritec96.apiCites.repository;
 
-import com.adritec96.apiCites.model.Paciente;
-import com.adritec96.apiCites.model.Cita;
+import com.adritec96.apiCites.model.entity.Paciente;
+import com.adritec96.apiCites.model.entity.Cita;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

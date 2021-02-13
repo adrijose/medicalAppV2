@@ -2,9 +2,9 @@ package com.adritec96.apiCites.services;
 
 import com.adritec96.apiCites.dto.MedicoRequest;
 import com.adritec96.apiCites.dto.MedicoResponse;
-import com.adritec96.apiCites.model.Medico;
+import com.adritec96.apiCites.model.entity.Medico;
 import com.adritec96.apiCites.repository.MedicoRepository;
-import com.adritec96.apiCites.model.Paciente;
+import com.adritec96.apiCites.model.entity.Paciente;
 import com.adritec96.apiCites.repository.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

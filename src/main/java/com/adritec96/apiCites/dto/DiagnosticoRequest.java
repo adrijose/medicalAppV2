@@ -1,6 +1,6 @@
 package com.adritec96.apiCites.dto;
 
-import com.adritec96.apiCites.model.Diagnostico;
+import com.adritec96.apiCites.model.entity.Diagnostico;
 
 
 public class DiagnosticoRequest implements Request {
@@ -13,7 +13,10 @@ public class DiagnosticoRequest implements Request {
     }
 
     public Diagnostico toModel(){
-        return new Diagnostico(valoracionEspecialista, enfermedad);
+        Diagnostico diagnostico =  new Diagnostico();
+        diagnostico.setValoracionEspecialista(valoracionEspecialista);
+        diagnostico.setEnfermedad(enfermedad);
+        return diagnostico;
     }
 
     public String getValoracionEspecialista() {

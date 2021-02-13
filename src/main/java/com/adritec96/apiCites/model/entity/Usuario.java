@@ -1,4 +1,4 @@
-package com.adritec96.apiCites.model;
+package com.adritec96.apiCites.model.entity;
 
 import javax.persistence.*;
 
@@ -7,22 +7,15 @@ public abstract class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(nullable = false, length = 70)
+    @Column(name = "nombre", nullable = false, length = 70)
     private String nombre;
-    @Column(nullable = false, length = 50)
+    @Column(name = "apellidos", nullable = false, length = 50)
     private String apellidos;
-    @Column(nullable = false, length = 50)
+    @Column(name="usuario", nullable = false, length = 50)
     private String usuario;
-    @Column(nullable = false, length = 100)
+    @Column(name="clave",nullable = false, length = 100)
     private String clave;
 
-    public Usuario() {}
-    public Usuario(String nombre, String apellidos, String usuario, String clave) {
-        this.nombre = nombre;
-        this.apellidos = apellidos;
-        this.usuario = usuario;
-        this.clave = clave;
-    }
 
     public int getId() {
         return id;

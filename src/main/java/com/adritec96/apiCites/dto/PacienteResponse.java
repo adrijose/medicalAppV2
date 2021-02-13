@@ -1,6 +1,6 @@
 package com.adritec96.apiCites.dto;
 
-import com.adritec96.apiCites.model.Paciente;
+import com.adritec96.apiCites.model.entity.Paciente;
 
 
 public class PacienteResponse extends UsuarioResponse implements Response {

@@ -1,6 +1,6 @@
 package com.adritec96.apiCites.dto;
 
-import com.adritec96.apiCites.model.Cita;
+import com.adritec96.apiCites.model.entity.Cita;
 
 import java.util.Date;
 
@@ -8,16 +8,14 @@ public class CitaResponse implements Response {
     private int id;
     private Date fechaHora;
     private String motivo;
-    private int attr11;
     private PacienteResponse paciente;
     private MedicoResponse medico;
     private DiagnosticoResponse diagnostico = null;
 
-    public CitaResponse(int id, Date fechaHora, String motivo, int attr11, PacienteResponse paciente, MedicoResponse medico) {
+    public CitaResponse(int id, Date fechaHora, String motivo, PacienteResponse paciente, MedicoResponse medico) {
         this.id = id;
         this.fechaHora = fechaHora;
         this.motivo = motivo;
-        this.attr11 = attr11;
         this.paciente = paciente;
         this.medico = medico;
     }
@@ -27,7 +25,6 @@ public class CitaResponse implements Response {
                 cita.getId(),
                 cita.getFechaHora(),
                 cita.getMotivo(),
-                cita.getAttr11(),
                 PacienteResponse.toResponse(cita.getPaciente()),
                 MedicoResponse.toResponse(cita.getMedico() )
         );
@@ -50,9 +47,6 @@ public class CitaResponse implements Response {
         return motivo;
     }
 
-    public int getAttr11() {
-        return attr11;
-    }
 
     public PacienteResponse getPaciente() {
         return paciente;
