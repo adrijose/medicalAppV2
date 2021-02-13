@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
@@ -75,18 +76,21 @@ class PacienteControllerTest {
         request.setDireccion("calle de la pasion");
 
         Paciente paciente = request.toModel();
+        PacienteResponse response = PacienteResponse.toResponse(paciente);
 
-        Mockito.when( pacienteService.save(request) ).thenReturn( PacienteResponse.toResponse(paciente) );
+        Mockito.when( pacienteService.save(request) ).thenReturn( response );
 
         Gson gson = new Gson();
-        String json = gson.toJson(request);
+        String requestJson = gson.toJson(request);
+        String responseJson = gson.toJson(response);
 
         this.mockMvc.perform(
                 MockMvcRequestBuilders
                         .post("/pacientes")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content( json )
-        ).andExpect(status().isCreated());
+                        .content( requestJson )
+        ).andExpect(status().isCreated())
+        .andExpect( content().json(responseJson) );
 
     }
 
