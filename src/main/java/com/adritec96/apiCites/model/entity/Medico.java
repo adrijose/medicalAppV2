@@ -3,6 +3,7 @@ package com.adritec96.apiCites.model.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "medicos",schema = "public")
@@ -39,4 +40,26 @@ public class Medico extends Usuario implements Serializable {
         this.pacientes = pacientes;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Medico medico = (Medico) o;
+        return Objects.equals(ncol, medico.ncol) && Objects.equals(pacientes, medico.pacientes);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), ncol, pacientes);
+    }
+
+    @Override
+    public String toString() {
+        return "Medico{" +
+                super.toString() +
+                ", ncol='" + ncol + '\'' +
+                ", pacientes=" + pacientes +
+                '}';
+    }
 }

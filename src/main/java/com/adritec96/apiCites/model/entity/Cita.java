@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name = "citas",schema = "public")
@@ -75,5 +76,30 @@ public class Cita implements Serializable {
 
     public void setDiagnostico(Diagnostico diagnostico) {
         this.diagnostico = diagnostico;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cita cita = (Cita) o;
+        return id == cita.id && Objects.equals(fechaHora, cita.fechaHora) && Objects.equals(motivo, cita.motivo) && Objects.equals(paciente, cita.paciente) && Objects.equals(medico, cita.medico) && Objects.equals(diagnostico, cita.diagnostico);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, fechaHora, motivo, paciente, medico, diagnostico);
+    }
+
+    @Override
+    public String toString() {
+        return "Cita{" +
+                "id=" + id +
+                ", fechaHora=" + fechaHora +
+                ", motivo='" + motivo + '\'' +
+                ", paciente=" + paciente +
+                ", medico=" + medico +
+                ", diagnostico=" + diagnostico +
+                '}';
     }
 }

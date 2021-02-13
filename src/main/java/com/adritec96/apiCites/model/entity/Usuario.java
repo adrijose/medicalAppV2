@@ -1,6 +1,7 @@
 package com.adritec96.apiCites.model.entity;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @MappedSuperclass
 public abstract class Usuario {
@@ -55,5 +56,27 @@ public abstract class Usuario {
 
     public void setClave(String clave) {
         this.clave = clave;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Usuario usuario1 = (Usuario) o;
+        return id == usuario1.id && Objects.equals(nombre, usuario1.nombre) && Objects.equals(apellidos, usuario1.apellidos) && Objects.equals(usuario, usuario1.usuario) && Objects.equals(clave, usuario1.clave);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nombre, apellidos, usuario, clave);
+    }
+
+    @Override
+    public String toString() {
+        return  "  id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", apellidos='" + apellidos + '\'' +
+                ", usuario='" + usuario + '\'' +
+                ", clave='" + clave + '\'' ;
     }
 }

@@ -3,28 +3,42 @@ package com.adritec96.apiCites.dto;
 
 import com.adritec96.apiCites.model.entity.Medico;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 public class MedicoResponse extends UsuarioResponse implements Response {
 
     private String ncol;
+    private List<PacienteResponse> pacientes;
 
-    
-    public MedicoResponse(int id, String nombre, String apellidos, String usuario, String ncol) {
-        super(id, nombre, apellidos, usuario);
-        this.ncol = ncol;
-    }
-    
+
     public static MedicoResponse toResponse(Medico medico){
-        return new MedicoResponse(
-                medico.getId(),
-                medico.getNombre(),
-                medico.getApellidos(),
-                medico.getUsuario(),
-                medico.getNcol()
+        MedicoResponse response = new MedicoResponse();
+        response.setId(medico.getId() );
+        response.setNombre(medico.getNombre());
+        response.setApellidos(medico.getApellidos());
+        response.setUsuario(medico.getUsuario());
+        response.setNcol( medico.getNcol() );
+        response.setPacientes(
+                medico.getPacientes().stream().map(PacienteResponse::toResponse).collect(Collectors.toList())
         );
+        return response;
     }
 
     public String getNcol() {
         return ncol;
+    }
+
+    public void setNcol(String ncol) {
+        this.ncol = ncol;
+    }
+
+    public List<PacienteResponse> getPacientes() {
+        return pacientes;
+    }
+
+    public void setPacientes(List<PacienteResponse> pacientes) {
+        this.pacientes = pacientes;
     }
 }

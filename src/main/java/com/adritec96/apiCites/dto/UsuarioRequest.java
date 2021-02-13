@@ -1,31 +1,57 @@
 package com.adritec96.apiCites.dto;
 
+import java.util.Objects;
+
 public class UsuarioRequest implements Response {
     private String nombre;
     private String apellidos;
     private String usuario;
     private String clave;
 
-    public UsuarioRequest(String nombre, String apellidos, String usuario, String clave) {
-        this.nombre = nombre;
-        this.apellidos = apellidos;
-        this.usuario = usuario;
-        this.clave = clave;
-    }
+    //////////////////////////////////////////////////////
 
     public String getNombre() {
         return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getApellidos() {
         return apellidos;
     }
 
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
     public String getUsuario() {
         return usuario;
     }
 
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
     public String getClave() {
         return clave;
+    }
+
+    public void setClave(String clave) {
+        this.clave = clave;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UsuarioRequest that = (UsuarioRequest) o;
+        return Objects.equals(nombre, that.nombre) && Objects.equals(apellidos, that.apellidos) && Objects.equals(usuario, that.usuario) && Objects.equals(clave, that.clave);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nombre, apellidos, usuario, clave);
     }
 }

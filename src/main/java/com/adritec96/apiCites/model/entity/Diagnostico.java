@@ -2,6 +2,7 @@ package com.adritec96.apiCites.model.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name = "diagnosticos", schema = "public")
@@ -48,5 +49,28 @@ public class Diagnostico implements Serializable {
 
     public void setCita(Cita cita) {
         this.cita = cita;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Diagnostico that = (Diagnostico) o;
+        return id == that.id && Objects.equals(valoracionEspecialista, that.valoracionEspecialista) && Objects.equals(enfermedad, that.enfermedad) && Objects.equals(cita, that.cita);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, valoracionEspecialista, enfermedad, cita);
+    }
+
+    @Override
+    public String toString() {
+        return "Diagnostico{" +
+                "id=" + id +
+                ", valoracionEspecialista='" + valoracionEspecialista + '\'' +
+                ", enfermedad='" + enfermedad + '\'' +
+                ", cita=" + cita +
+                '}';
     }
 }

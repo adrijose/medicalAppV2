@@ -2,6 +2,8 @@ package com.adritec96.apiCites.dto;
 
 import com.adritec96.apiCites.model.entity.Usuario;
 
+import java.util.Objects;
+
 
 public class UsuarioResponse implements Response {
     private int id;
@@ -9,37 +11,57 @@ public class UsuarioResponse implements Response {
     private String apellidos;
     private String usuario;
 
-    public UsuarioResponse(int id, String nombre, String apellidos, String usuario) {
-        this.id = id;
-        this.nombre = nombre;
-        this.apellidos = apellidos;
-        this.usuario = usuario;
-    }
-
-    public static UsuarioResponse formAggregate(Usuario usuario){
-        return new UsuarioResponse(
-                usuario.getId(),
-                usuario.getNombre(),
-                usuario.getApellidos(),
-                usuario.getUsuario()
-        );
-    }
-
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNombre() {
         return nombre;
     }
 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
     public String getApellidos() {
         return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
     }
 
     public String getUsuario() {
         return usuario;
     }
 
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UsuarioResponse response = (UsuarioResponse) o;
+        return id == response.id && Objects.equals(nombre, response.nombre) && Objects.equals(apellidos, response.apellidos) && Objects.equals(usuario, response.usuario);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nombre, apellidos, usuario);
+    }
+
+
+    @Override
+    public String toString() {
+        return  " id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", apellidos='" + apellidos + '\'' +
+                ", usuario='" + usuario + '\'' ;
+    }
 }
