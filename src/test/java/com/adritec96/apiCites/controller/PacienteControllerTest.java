@@ -49,11 +49,18 @@ class PacienteControllerTest {
         ).andExpect(status().isOk());
     }
 
+    @Test
+    void getById() throws Exception {
+            PacienteResponse response = PacienteResponse.toResponse( PacienteTest.create() );
 
-//    @Test
-//    void read() {
-//    }
-//
+            Mockito.when( pacienteService.getById(response.getId()) ).thenReturn(response);
+
+            this.mockMvc.perform(
+                    MockMvcRequestBuilders.get("/pacientes/"+response.getId() )
+                            .contentType(MediaType.APPLICATION_JSON)
+            ).andExpect(status().isOk());
+
+    }
 
     @Test
     void it_should_return_created_paciente() throws Exception {
@@ -82,6 +89,10 @@ class PacienteControllerTest {
         ).andExpect(status().isCreated());
 
     }
+
+
+
+
 
 
 }

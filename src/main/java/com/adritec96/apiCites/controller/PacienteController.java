@@ -22,19 +22,15 @@ public class PacienteController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> read (@PathVariable int id){
+    public ResponseEntity<?> getById (@PathVariable int id){
         PacienteResponse paciente = pacienteService.getById(id);
         return paciente == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(paciente);
     }
 
     @PostMapping
     public ResponseEntity<?> create (@RequestBody PacienteRequest paciente){
-        try {
-            PacienteResponse response = pacienteService.save(paciente);
-            return ResponseEntity.status(HttpStatus.CREATED).body(response);
-        }
-        catch (Exception ex) {
-            return ResponseEntity.badRequest().build();
-        }
+        PacienteResponse response = pacienteService.save(paciente);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
 }
