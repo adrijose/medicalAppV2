@@ -6,9 +6,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PacienteTest {
 
+    private static int id = 0;
+
     public static Paciente create(){
         Paciente mokPaciente = new Paciente();
-        mokPaciente.setId(1);
+        mokPaciente.setId(id++);
         mokPaciente.setNombre("adri");
         mokPaciente.setApellidos("perez");
         mokPaciente.setUsuario("adrijose");
