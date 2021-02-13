@@ -3,7 +3,7 @@ package com.adritec96.apiCites.controller;
 
 import com.adritec96.apiCites.dto.PacienteRequest;
 import com.adritec96.apiCites.dto.PacienteResponse;
-import com.adritec96.apiCites.services.IPacienteService;
+import com.adritec96.apiCites.services.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/pacientes")
 public class PacienteController {
     @Autowired
-    private IPacienteService pacienteService;
+    private PacienteService pacienteService;
 
     @GetMapping
     public ResponseEntity<?> getAll (){

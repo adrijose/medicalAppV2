@@ -2,9 +2,9 @@ package com.adritec96.apiCites.controller;
 
 import com.adritec96.apiCites.dto.CitaRequest;
 import com.adritec96.apiCites.dto.CitaResponse;
-import com.adritec96.apiCites.services.ICitaService;
-import com.adritec96.apiCites.services.IMedicoService;
-import com.adritec96.apiCites.services.IPacienteService;
+import com.adritec96.apiCites.services.CitaService;
+import com.adritec96.apiCites.services.MedicoService;
+import com.adritec96.apiCites.services.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +16,11 @@ import java.util.List;
 @RequestMapping("/citas")
 public class CitaController{
     @Autowired
-    private ICitaService citaService;
+    private CitaService citaService;
     @Autowired
-    private IMedicoService medicoService;
+    private MedicoService medicoService;
     @Autowired
-    private IPacienteService pacienteService;
+    private PacienteService pacienteService;
 
     @GetMapping
     public ResponseEntity<?> getAll(){
