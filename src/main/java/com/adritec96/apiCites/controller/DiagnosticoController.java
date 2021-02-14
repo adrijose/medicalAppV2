@@ -1,5 +1,6 @@
 package com.adritec96.apiCites.controller;
 
+import com.adritec96.apiCites.Share.NotFound;
 import com.adritec96.apiCites.dto.DiagnosticoRequest;
 import com.adritec96.apiCites.dto.DiagnosticoResponse;
 import com.adritec96.apiCites.services.DiagnosticoService;
@@ -22,9 +23,15 @@ public class DiagnosticoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> read ( @PathVariable int id){
+    public ResponseEntity<?> read ( @PathVariable int id) throws NotFound {
         DiagnosticoResponse diagnostico = diagnosticoService.getById(id);
-        return diagnostico == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(diagnostico);
+        return ResponseEntity.ok(diagnostico);
+    }
+
+    @GetMapping("/cita/{idCita}")
+    public ResponseEntity<?> getDiagnosticoByCita( @PathVariable int idCita) throws NotFound {
+        DiagnosticoResponse diagnostico = diagnosticoService.getByCita(idCita);
+        return ResponseEntity.ok(diagnostico);
     }
 
 }
