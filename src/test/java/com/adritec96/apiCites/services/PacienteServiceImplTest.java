@@ -1,5 +1,6 @@
 package com.adritec96.apiCites.services;
 
+import com.adritec96.apiCites.Share.NotFound;
 import com.adritec96.apiCites.dto.PacienteRequest;
 import com.adritec96.apiCites.dto.PacienteResponse;
 import com.adritec96.apiCites.model.entity.Paciente;
@@ -42,6 +43,20 @@ class PacienteServiceImplTest {
         Assertions.assertEquals(result,expected);
     }
 
+    @Test
+    void when_bad_id_should_return_NotFound() throws Exception {
+        // Mock data
+        int badId = 0;
+        // Mock Repository
+        // Mock Response
+        NotFound ex = Assertions.assertThrows(NotFound.class, () -> {
+            pacienteService.getById(badId);
+        });
+        // Test
+        // Verify
+        Assertions.assertEquals(ex.getMessage(), "No existe el usuario con id:"+ badId);
+    }
+
 
     @Test
     void getAll() {
@@ -62,7 +77,7 @@ class PacienteServiceImplTest {
 
 
     @Test
-    void when_save_paciente_it_should_return_pacient() {
+    void save() {
         // Mock Data
         PacienteRequest request = PacientePrototype.createRequest();
         Paciente model = request.toModel();
