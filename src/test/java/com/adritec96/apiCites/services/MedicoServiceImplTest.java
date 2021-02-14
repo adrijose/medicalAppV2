@@ -50,16 +50,18 @@ class MedicoServiceImplTest {
     void save() {
         // Mock data
         MedicoRequest request = MedicoPrototype.createRequest();
-
         Medico mockMedico = request.toModel();
 
         // Mock Repository
         Mockito.when( medicoRepository.save(mockMedico) ).thenReturn( mockMedico );
 
+        // TEST
         MedicoResponse result = medicoService.save(request);
         MedicoResponse expected = MedicoResponse.toResponse(mockMedico);
 
+        // Comprobamos que esta guardado en la BD
         Mockito.verify(medicoRepository).save(mockMedico);
+        // Comprobamos que devuelve el objeto creado.
         Assertions.assertEquals(result,expected);
     }
 
@@ -102,10 +104,14 @@ class MedicoServiceImplTest {
         Mockito.when( medicoRepository.save(mockMedico) )
                 .thenReturn(mockMedico);
 
+        // TEST
         medicoService.asignarPaciente(mockMedico.getId(),mockPaciente.getId());
 
+        // Comprobar que se han asignado correctamente
         Assertions.assertEquals(mockMedico.getPacientes().contains(mockPaciente), true);
         Assertions.assertEquals(mockPaciente.getMedicos().contains(mockMedico), true);
-
+        // Comprobar que se han guardado en la bd con las asignaciones
+        Mockito.verify(medicoRepository).save(mockMedico);
+        Mockito.verify(pacienteRepository).save(mockPaciente);
     }
 }
