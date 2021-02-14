@@ -31,18 +31,15 @@ public class MedicoController {
 
     @PostMapping
     public ResponseEntity<?> create (@RequestBody MedicoRequest medico){
-        medicoService.save(medico);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        MedicoResponse result = medicoService.save(medico);
+        return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
-
-
 
     @PutMapping("/{idMedico}/addPaciente")
-    public ResponseEntity<?> addPacciente (@PathVariable int idMedico, @RequestParam int id){
-        medicoService.asignarPaciente(idMedico,id);
-        return ResponseEntity.status(HttpStatus.CREATED).body("OK");
+    public ResponseEntity<?> addPacciente (@PathVariable int idMedico, @RequestParam int idPaciente){
+        medicoService.asignarPaciente(idMedico,idPaciente);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-
 
 
 }

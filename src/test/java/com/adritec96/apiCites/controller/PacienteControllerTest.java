@@ -2,7 +2,6 @@ package com.adritec96.apiCites.controller;
 
 import com.adritec96.apiCites.dto.PacienteRequest;
 import com.adritec96.apiCites.dto.PacienteResponse;
-import com.adritec96.apiCites.model.entity.Paciente;
 import com.adritec96.apiCites.model.entity.PacientePrototype;
 import com.adritec96.apiCites.services.PacienteServiceImpl;
 import com.google.gson.Gson;
@@ -30,28 +29,24 @@ class PacienteControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
     @MockBean
     private PacienteServiceImpl pacienteService;
 
+    private Gson gson = new Gson();
 
     @Test
     void getAll() throws Exception {
         // Mock data
         List<PacienteResponse> response = new ArrayList<>();
         for(int i=0;i<5;i++) response.add( PacientePrototype.createResponse() );
-        // Mock Response
-        Gson gson = new Gson();
-        String responseJson = gson.toJson(response);
         // Mock Repository
         Mockito.when( pacienteService.getAll() ).thenReturn(response);
+        // Mock Response
+        String responseJson = gson.toJson(response);
         // Test & Verify
-        this.mockMvc.perform(
-                MockMvcRequestBuilders.get("/pacientes")
-        ).andExpect(status().isOk())
+        this.mockMvc.perform(  MockMvcRequestBuilders.get("/pacientes") )
+                .andExpect(status().isOk())
                 .andExpect(content().json(responseJson));
-
-
 
     }
 
@@ -67,19 +62,15 @@ class PacienteControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(status().isOk());
 
-
-
     }
 
     @Test
     void it_should_return_created_paciente() throws Exception {
-        Gson gson = new Gson();
         // Mock data
         PacienteRequest request = PacientePrototype.createRequest();
-        Paciente paciente = request.toModel();
         String requestJson = gson.toJson(request);
         // Mock Response
-        PacienteResponse response = PacienteResponse.toResponse(paciente);
+        PacienteResponse response = request.toResponse();
         String responseJson = gson.toJson(response);
         // Mock Repository
         Mockito.when( pacienteService.save(request) ).thenReturn( response );
@@ -88,11 +79,10 @@ class PacienteControllerTest {
                 MockMvcRequestBuilders
                         .post("/pacientes")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content( requestJson )
-        ).andExpect(status().isCreated())
-        .andExpect( content().json(responseJson) );
+                        .content( requestJson ))
+                .andExpect(status().isCreated())
+                .andExpect( content().json(responseJson) );
     }
-
 
 }
 

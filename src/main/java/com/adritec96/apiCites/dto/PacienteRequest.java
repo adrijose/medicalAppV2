@@ -25,6 +25,10 @@ public class PacienteRequest extends UsuarioRequest implements Request {
         return paciente;
     }
 
+    public PacienteResponse toResponse(){
+        return PacienteResponse.toResponse( toModel() );
+    }
+
     public String getNns() {
         return nns;
     }

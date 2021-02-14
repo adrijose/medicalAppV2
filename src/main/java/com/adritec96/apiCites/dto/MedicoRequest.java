@@ -20,6 +20,12 @@ public class MedicoRequest extends UsuarioRequest implements Request {
         return medico;
     }
 
+    public MedicoResponse toResponse(){
+        return MedicoResponse.toResponse( toModel() );
+    }
+
+    ////////////////////////////////////////////////////////
+
     public String getNcol() {
         return ncol;
     }
