@@ -33,34 +33,36 @@ class PacienteServiceImplTest {
 
     @Test
     void getById() {
-        // Mok Data
-        Paciente mokPaciente = PacienteTest.create();
-        // Mok Repository
-        Mockito.when( pacienteRepository.findById(mokPaciente.getId()) ).thenReturn( Optional.of(mokPaciente) );
+        // Mock Data
+        Paciente mockPaciente = PacienteTest.create();
+        // Mock Repository
+        Mockito.when( pacienteRepository.findById(mockPaciente.getId()) )
+                .thenReturn( Optional.of(mockPaciente) );
 
-        PacienteResponse result = pacienteService.getById(mokPaciente.getId());
-        PacienteResponse expected = PacienteResponse.toResponse(mokPaciente);
+        PacienteResponse result = pacienteService.getById(mockPaciente.getId());
+        PacienteResponse expected = PacienteResponse.toResponse(mockPaciente);
 
         Assertions.assertEquals(result,expected);
     }
 
     @Test
     void getAll() {
-        // Mok Data
-        List<Paciente> mokPacientes = new ArrayList<>();
-        for(int i=0; i<5; i++) mokPacientes.add( PacienteTest.create() );
-        // Mok Repository
-        Mockito.when( pacienteRepository.findAll() ).thenReturn( mokPacientes );
+        // Mock Data
+        List<Paciente> mockPacientes = new ArrayList<>();
+        for(int i=0; i<5; i++) mockPacientes.add( PacienteTest.create() );
+        // Mock Repository
+        Mockito.when( pacienteRepository.findAll() )
+                .thenReturn( mockPacientes );
 
         List<PacienteResponse> result = pacienteService.getAll();
-        List<PacienteResponse> expected = mokPacientes.stream().map(PacienteResponse::toResponse).collect(Collectors.toList());
+        List<PacienteResponse> expected = mockPacientes.stream().map(PacienteResponse::toResponse).collect(Collectors.toList());
 
         Assertions.assertEquals(result,expected);
     }
 
     @Test
     void when_save_paciente_it_should_return_pacient() {
-        // Mok Data
+        // Mock Data
         PacienteRequest request = new PacienteRequest();
         request.setNombre("pepito");
         request.setApellidos("ramirez");
@@ -71,7 +73,7 @@ class PacienteServiceImplTest {
         request.setTelefono("611611611");
         request.setDireccion("calle de la pasion");
 
-        // Mok Repository
+        // Mock Repository
         Mockito.when( pacienteRepository.save( request.toModel() ) ).thenReturn( request.toModel() );
 
         PacienteResponse result = pacienteService.save( request );
@@ -83,6 +85,8 @@ class PacienteServiceImplTest {
 
     @Test
     void delete() {
-        pacienteService.delete(0);
+        Paciente mockPaciente = PacienteTest.create();
+        pacienteService.delete( mockPaciente.getId() );
+        Mockito.verify(pacienteRepository).deleteById(mockPaciente.getId());
     }
 }

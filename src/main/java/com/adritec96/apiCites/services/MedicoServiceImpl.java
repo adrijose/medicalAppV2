@@ -53,9 +53,9 @@ public class MedicoServiceImpl implements MedicoService {
 
     @Override
     @Transactional
-    public void asignarPaciente(int idMedio,int idCliente){
+    public void asignarPaciente(int idMedio,int idPaciente){
         // Obtenemos el paciente y el medico
-        Optional<Paciente> paciente = pacienteRepository.findById(idCliente);
+        Optional<Paciente> paciente = pacienteRepository.findById(idPaciente);
         Optional<Medico> medico = medicoRepository.findById(idMedio);
         // Añadimos el paciente al medico
         List<Paciente> pacientes = medico.get().getPacientes();
