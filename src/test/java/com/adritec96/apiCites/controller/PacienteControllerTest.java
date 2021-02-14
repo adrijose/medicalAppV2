@@ -39,7 +39,7 @@ class PacienteControllerTest {
     @Test
     void getAll() throws Exception {
         List<PacienteResponse> pacientes = new ArrayList<>();
-        for(int i=0;i<5;i++) pacientes.add( PacienteResponse.toResponse(PacienteTest.create() ) );
+        for(int i=0;i<5;i++) pacientes.add( PacienteResponse.toResponse(PacienteTest.create(new ArrayList()) ) );
 
         Mockito.when( pacienteService.getAll() ).thenReturn(pacientes);
 
@@ -52,7 +52,7 @@ class PacienteControllerTest {
 
     @Test
     void getById() throws Exception {
-            PacienteResponse response = PacienteResponse.toResponse( PacienteTest.create() );
+            PacienteResponse response = PacienteResponse.toResponse( PacienteTest.create( new ArrayList() ) );
 
             Mockito.when( pacienteService.getById(response.getId()) ).thenReturn(response);
 

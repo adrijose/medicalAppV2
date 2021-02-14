@@ -34,7 +34,7 @@ class PacienteServiceImplTest {
     @Test
     void getById() {
         // Mock Data
-        Paciente mockPaciente = PacienteTest.create();
+        Paciente mockPaciente = PacienteTest.create( new ArrayList() );
         // Mock Repository
         Mockito.when( pacienteRepository.findById(mockPaciente.getId()) )
                 .thenReturn( Optional.of(mockPaciente) );
@@ -49,7 +49,7 @@ class PacienteServiceImplTest {
     void getAll() {
         // Mock Data
         List<Paciente> mockPacientes = new ArrayList<>();
-        for(int i=0; i<5; i++) mockPacientes.add( PacienteTest.create() );
+        for(int i=0; i<5; i++) mockPacientes.add( PacienteTest.create( new ArrayList() ) );
         // Mock Repository
         Mockito.when( pacienteRepository.findAll() )
                 .thenReturn( mockPacientes );
@@ -63,29 +63,23 @@ class PacienteServiceImplTest {
     @Test
     void when_save_paciente_it_should_return_pacient() {
         // Mock Data
-        PacienteRequest request = new PacienteRequest();
-        request.setNombre("pepito");
-        request.setApellidos("ramirez");
-        request.setUsuario("pepe22");
-        request.setClave("325322");
-        request.setNns("FSAIKGSAI");
-        request.setNumTarjeta("523523253");
-        request.setTelefono("611611611");
-        request.setDireccion("calle de la pasion");
+        PacienteRequest request = PacienteTest.createRequest();
+        Paciente model = request.toModel();
 
         // Mock Repository
-        Mockito.when( pacienteRepository.save( request.toModel() ) ).thenReturn( request.toModel() );
+        Mockito.when( pacienteRepository.save( model ) ).thenReturn( model );
 
         PacienteResponse result = pacienteService.save( request );
-        PacienteResponse expected =  PacienteResponse.toResponse( request.toModel() );
+        PacienteResponse expected =  PacienteResponse.toResponse( model );
         expected.setId(result.getId());
 
+        Mockito.verify(pacienteRepository).save( model );
         Assertions.assertEquals(result,expected);
     }
 
     @Test
     void delete() {
-        Paciente mockPaciente = PacienteTest.create();
+        Paciente mockPaciente = PacienteTest.create( new ArrayList() );
         pacienteService.delete( mockPaciente.getId() );
         Mockito.verify(pacienteRepository).deleteById(mockPaciente.getId());
     }

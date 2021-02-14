@@ -63,6 +63,7 @@ class MedicoServiceImplTest {
         MedicoResponse result = medicoService.save(request);
         MedicoResponse expected = MedicoResponse.toResponse(mockMedico);
 
+        Mockito.verify(medicoRepository).save(mockMedico);
         Assertions.assertEquals(result,expected);
     }
 
@@ -92,7 +93,7 @@ class MedicoServiceImplTest {
     @Test
     void asignarPaciente() {
         // Mock data
-        Paciente mockPaciente = PacienteTest.create();
+        Paciente mockPaciente = PacienteTest.create( new ArrayList() );
         Medico mockMedico = MedicoTest.create( new ArrayList() );
         // Mock repository
         Mockito.when( pacienteRepository.findById(mockPaciente.getId()) )

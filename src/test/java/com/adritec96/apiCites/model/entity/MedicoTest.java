@@ -9,8 +9,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class MedicoTest {
 
+    private static int id = 0;
+
     public static Medico create(ArrayList pacientes){
         Medico medico = new Medico();
+        medico.setId(id++);
         medico.setNombre("Ramón");
         medico.setApellidos("Jimenez");
         medico.setUsuario("ramonj");
