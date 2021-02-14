@@ -26,6 +26,7 @@ public class PacienteResponse extends UsuarioResponse implements Response {
         return response;
     }
 
+    //////////////////////////////////////////////////////////////////////////
 
     public String getNns() {
         return nns;

@@ -15,10 +15,10 @@ public class DiagnosticoController {
     @Autowired
     private DiagnosticoService diagnosticoService;
 
-    @PostMapping("/{id}")
-    public ResponseEntity<?> create (@RequestBody DiagnosticoRequest diagnostico, @PathVariable(name = "id") int idCita){
-        diagnosticoService.save(diagnostico,idCita);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    @PostMapping("/{idCita}")
+    public ResponseEntity<?> create (@RequestBody DiagnosticoRequest diagnostico, @PathVariable int idCita){
+        if( diagnostico == null || idCita <= 0 ) return ResponseEntity.badRequest().build();
+        return ResponseEntity.status(HttpStatus.CREATED).body( diagnosticoService.save(diagnostico,idCita) );
     }
 
     @GetMapping("/{id}")

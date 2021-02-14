@@ -8,7 +8,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "medicos",schema = "public")
 public class Medico extends Usuario implements Serializable {
-    @Column(name="ncol",length = 50, unique = true)
+    @Column(name="ncol",length = 50, unique = true, nullable = false)
     private String ncol;
 
     @ManyToMany(cascade = {

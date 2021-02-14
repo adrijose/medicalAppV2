@@ -31,7 +31,7 @@ public class CitaController{
     @GetMapping("/{id}")
     public ResponseEntity<?> getById( @PathVariable(name = "id") int idCita){
         CitaResponse cita = citaService.getById(idCita);
-        return cita == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(cita);
+        return cita == null ? ResponseEntity.badRequest().build() : ResponseEntity.ok(cita);
     }
 
     @GetMapping("/paciente/{id}")

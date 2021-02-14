@@ -8,9 +8,9 @@ public abstract class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "nombre", nullable = false, length = 70)
+    @Column(name = "nombre", nullable = false, length = 50)
     private String nombre;
-    @Column(name = "apellidos", nullable = false, length = 50)
+    @Column(name = "apellidos", nullable = false, length = 70)
     private String apellidos;
     @Column(name="usuario", nullable = false, length = 50)
     private String usuario;

@@ -1,11 +1,10 @@
 package com.adritec96.apiCites.dto;
 
 import com.adritec96.apiCites.model.entity.Paciente;
-
 import java.util.Objects;
 
-
 public class PacienteRequest extends UsuarioRequest implements Request {
+
     private String nns;
     private String numTarjeta;
     private String telefono;
@@ -28,6 +27,8 @@ public class PacienteRequest extends UsuarioRequest implements Request {
     public PacienteResponse toResponse(){
         return PacienteResponse.toResponse( toModel() );
     }
+
+    //////////////////////////////////////////////////////////////////////////
 
     public String getNns() {
         return nns;

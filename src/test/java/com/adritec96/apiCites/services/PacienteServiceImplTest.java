@@ -28,7 +28,7 @@ class PacienteServiceImplTest {
 
 
     @Test
-    void getById() {
+    void getById() throws Exception {
         // Mock data
         Paciente mockPaciente = PacientePrototype.create( new ArrayList() );
         // Mock Repository

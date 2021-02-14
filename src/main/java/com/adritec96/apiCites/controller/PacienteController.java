@@ -1,6 +1,7 @@
 package com.adritec96.apiCites.controller;
 
 
+import com.adritec96.apiCites.Share.NotFound;
 import com.adritec96.apiCites.dto.PacienteRequest;
 import com.adritec96.apiCites.dto.PacienteResponse;
 import com.adritec96.apiCites.services.PacienteService;
@@ -22,9 +23,8 @@ public class PacienteController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getById (@PathVariable int id){
-        PacienteResponse paciente = pacienteService.getById(id);
-        return paciente == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(paciente);
+    public ResponseEntity<?> getById (@PathVariable int id) throws Exception {
+        return ResponseEntity.ok( pacienteService.getById(id) );
     }
 
     @PostMapping

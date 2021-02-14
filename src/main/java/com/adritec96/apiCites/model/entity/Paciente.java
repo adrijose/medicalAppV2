@@ -8,13 +8,13 @@ import java.util.Objects;
 @Entity
 @Table(name = "pacientes",schema = "public")
 public class Paciente extends Usuario implements Serializable {
-    @Column(name ="nns", length = 50, nullable = false)
+    @Column(name ="nns", length = 30, nullable = false)
     private String nns;
-    @Column(name = "num_tarjeta", nullable = false)
+    @Column(name = "num_tarjeta", length = 30, nullable = false)
     private String numTarjeta;
-    @Column(name = "telefono", nullable = false)
+    @Column(name = "telefono", length = 20,nullable = false)
     private String telefono;
-    @Column(name="direccion", nullable = false)
+    @Column(name="direccion", length = 150 ,nullable = false)
     private String direccion;
 
     @ManyToMany( mappedBy = "pacientes" )

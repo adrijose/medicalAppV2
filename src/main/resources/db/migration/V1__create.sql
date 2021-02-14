@@ -3,12 +3,12 @@ CREATE TABLE pacientes(
     id INT NOT NULL AUTO_INCREMENT,
     nombre VARCHAR(50) NOT NULL,
     apellidos VARCHAR(70) NOT NULL,
-    direccion VARCHAR(100) NOT NULL,
+    direccion VARCHAR(150) NOT NULL,
     nns VARCHAR(30) NOT NULL,
-    num_tarjeta VARCHAR(50) NOT NULL,
+    num_tarjeta VARCHAR(30) NOT NULL,
     telefono VARCHAR(20) NOT NULL,
     usuario VARCHAR(50) NOT NULL,
-    clave VARCHAR(50) NOT NULL,
+    clave VARCHAR(100) NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -16,7 +16,7 @@ CREATE TABLE medicos(
     id INT NOT NULL AUTO_INCREMENT,
     nombre VARCHAR(50) NOT NULL,
     apellidos VARCHAR(70) NOT NULL,
-    ncol VARCHAR(30) NOT NULL,
+    ncol VARCHAR(50) NOT NULL UNIQUE,
     usuario VARCHAR(50) NOT NULL,
     clave VARCHAR(50) NOT NULL,
     PRIMARY KEY (id)

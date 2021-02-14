@@ -26,6 +26,8 @@ public class MedicoResponse extends UsuarioResponse implements Response {
         return response;
     }
 
+    //////////////////////////////////////////////////////////////////////////
+
     public String getNcol() {
         return ncol;
     }

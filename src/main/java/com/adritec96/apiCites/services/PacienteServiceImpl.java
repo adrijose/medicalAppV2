@@ -1,5 +1,6 @@
 package com.adritec96.apiCites.services;
 
+import com.adritec96.apiCites.Share.NotFound;
 import com.adritec96.apiCites.dto.PacienteRequest;
 import com.adritec96.apiCites.dto.PacienteResponse;
 import com.adritec96.apiCites.model.entity.Paciente;
@@ -20,8 +21,9 @@ public class PacienteServiceImpl implements PacienteService {
 
     @Override
     @Transactional( readOnly = true )
-    public PacienteResponse getById(int id) {
+    public PacienteResponse getById(int id) throws NotFound {
         Optional<Paciente> paciente = pacienteRepository.findById(id);
+        if( !paciente.isPresent() ) throw new NotFound("No existe el usuario con id:"+ id);
         return PacienteResponse.toResponse(paciente.get());
     }
 

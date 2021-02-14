@@ -1,11 +1,22 @@
 package com.adritec96.apiCites.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.sun.istack.NotNull;
+
 import java.util.Objects;
 
 public class UsuarioRequest implements Response {
+    @JsonProperty
+    @NotNull
     private String nombre;
+    @JsonProperty
+    @NotNull
     private String apellidos;
+    @JsonProperty
+    @NotNull
     private String usuario;
+    @JsonProperty
+    @NotNull
     private String clave;
 
     //////////////////////////////////////////////////////

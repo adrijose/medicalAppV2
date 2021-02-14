@@ -1,11 +1,15 @@
 package com.adritec96.apiCites.dto;
 
 import com.adritec96.apiCites.model.entity.Medico;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.sun.istack.NotNull;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class MedicoRequest extends UsuarioRequest implements Request {
+    @JsonProperty
+    @NotNull
     private String ncol;
 
 
@@ -24,7 +28,7 @@ public class MedicoRequest extends UsuarioRequest implements Request {
         return MedicoResponse.toResponse( toModel() );
     }
 
-    ////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////
 
     public String getNcol() {
         return ncol;
