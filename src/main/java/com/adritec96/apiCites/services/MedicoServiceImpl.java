@@ -1,5 +1,7 @@
 package com.adritec96.apiCites.services;
 
+import com.adritec96.apiCites.Share.ExistRelation;
+import com.adritec96.apiCites.Share.NotFound;
 import com.adritec96.apiCites.dto.MedicoRequest;
 import com.adritec96.apiCites.dto.MedicoResponse;
 import com.adritec96.apiCites.model.entity.Medico;
@@ -9,6 +11,7 @@ import com.adritec96.apiCites.repository.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -53,10 +56,18 @@ public class MedicoServiceImpl implements MedicoService {
 
     @Override
     @Transactional
-    public void asignarPaciente(int idMedio,int idPaciente){
+    public void asignarPaciente(int idMedio,int idPaciente) throws NotFound , ExistRelation {
         // Obtenemos el paciente y el medico
         Optional<Paciente> paciente = pacienteRepository.findById(idPaciente);
+        if( !paciente.isPresent() ) throw new NotFound("No existe el paciente con id:"+idPaciente);
         Optional<Medico> medico = medicoRepository.findById(idMedio);
+        if( !medico.isPresent() ) throw new NotFound("No existe el medico con id:"+idMedio);
+
+        // Comprobamos si existe la relacion
+        for ( Paciente p: medico.get().getPacientes() ) {
+            if( p == paciente.get() ) throw new ExistRelation("Ya tiene asignado este paciente");
+        }
+
         // Añadimos el paciente al medico
         List<Paciente> pacientes = medico.get().getPacientes();
         pacientes.add(paciente.get());

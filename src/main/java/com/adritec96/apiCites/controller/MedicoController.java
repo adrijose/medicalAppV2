@@ -1,5 +1,7 @@
 package com.adritec96.apiCites.controller;
 
+import com.adritec96.apiCites.Share.ExistRelation;
+import com.adritec96.apiCites.Share.NotFound;
 import com.adritec96.apiCites.dto.MedicoRequest;
 import com.adritec96.apiCites.dto.MedicoResponse;
 import com.adritec96.apiCites.services.MedicoService;
@@ -8,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+
 
 @RestController
 @RequestMapping("/medicos")
@@ -36,7 +40,7 @@ public class MedicoController {
     }
 
     @PutMapping("/{idMedico}/addPaciente")
-    public ResponseEntity<?> addPacciente (@PathVariable int idMedico, @RequestParam int idPaciente){
+    public ResponseEntity<?> addPacciente (@PathVariable int idMedico, @RequestParam int idPaciente) throws NotFound, ExistRelation {
         medicoService.asignarPaciente(idMedico,idPaciente);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

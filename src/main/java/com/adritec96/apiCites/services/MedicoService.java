@@ -1,6 +1,8 @@
 package com.adritec96.apiCites.services;
 
 
+import com.adritec96.apiCites.Share.ExistRelation;
+import com.adritec96.apiCites.Share.NotFound;
 import com.adritec96.apiCites.dto.MedicoRequest;
 import com.adritec96.apiCites.dto.MedicoResponse;
 
@@ -12,6 +14,6 @@ public interface MedicoService {
     void delete(int id);
     List<MedicoResponse> getAll();
     // Asignar paciente
-    void asignarPaciente(int idMedico, int idCliente );
+    void asignarPaciente(int idMedico, int idCliente ) throws NotFound, ExistRelation;
 
 }

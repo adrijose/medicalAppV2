@@ -1,5 +1,7 @@
 package com.adritec96.apiCites.services;
 
+import com.adritec96.apiCites.Share.ExistRelation;
+import com.adritec96.apiCites.Share.NotFound;
 import com.adritec96.apiCites.dto.MedicoRequest;
 import com.adritec96.apiCites.dto.MedicoResponse;
 import com.adritec96.apiCites.model.entity.Medico;
@@ -92,7 +94,7 @@ class MedicoServiceImplTest {
     }
 
     @Test
-    void asignarPaciente() {
+    void asignarPaciente() throws NotFound, ExistRelation {
         // Mock data
         Paciente mockPaciente = PacientePrototype.create( new ArrayList() );
         Medico mockMedico = MedicoPrototype.create( new ArrayList() );

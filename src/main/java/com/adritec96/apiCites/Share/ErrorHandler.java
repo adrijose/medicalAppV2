@@ -41,4 +41,10 @@ public class ErrorHandler {
         return new ResponseEntity<>(errorInfo, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(ExistRelation.class)
+    public ResponseEntity<ErrorInfo> exist_relacion_medico_paciente (HttpServletRequest request, ExistRelation e){ ;
+        ErrorInfo errorInfo = new ErrorInfo(HttpStatus.BAD_REQUEST.value(), e.getMessage() , request.getRequestURI());
+        return new ResponseEntity<>(errorInfo, HttpStatus.BAD_REQUEST);
+    }
+
 }
