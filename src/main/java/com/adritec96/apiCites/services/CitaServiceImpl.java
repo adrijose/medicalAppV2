@@ -1,5 +1,6 @@
 package com.adritec96.apiCites.services;
 
+import com.adritec96.apiCites.Share.NotFound;
 import com.adritec96.apiCites.dto.CitaRequest;
 import com.adritec96.apiCites.dto.CitaResponse;
 import com.adritec96.apiCites.model.entity.Cita;
@@ -28,9 +29,9 @@ public class CitaServiceImpl implements CitaService {
 
     @Override
     @Transactional(readOnly = true)
-    public CitaResponse getById(int id) {
+    public CitaResponse getById(int id) throws NotFound {
         Optional<Cita> cita = citaRepository.findById(id);
-        if(!cita.isPresent()) return null; //////////////////////////// throw
+        if(!cita.isPresent()) throw new NotFound("No existe cita con id:"+ id);
         return CitaResponse.toResponse(cita.get());
     }
 
@@ -44,9 +45,9 @@ public class CitaServiceImpl implements CitaService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<CitaResponse> getCitesByPaciente(int idPaciente) {
+    public List<CitaResponse> getCitesByPaciente(int idPaciente) throws NotFound {
         Optional<Paciente> paciente = pacienteRepository.findById(idPaciente);
-        if(!paciente.isPresent()) return null; //////////////////////////// throw
+        if(!paciente.isPresent()) throw new NotFound("No existe paciente con id:"+ idPaciente);
         List<Cita> citasPaciente = citaRepository.findByPaciente(paciente.get());
         return citasPaciente.stream().map(CitaResponse::toResponse)
                 .collect(Collectors.toList());
@@ -67,11 +68,9 @@ public class CitaServiceImpl implements CitaService {
 
     @Override
     @Transactional
-    public void delete(int id) {
+    public void delete(int id) throws IllegalArgumentException {
         citaRepository.deleteById(id);
     }
-
-
 
 
 
