@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 @ControllerAdvice
@@ -46,5 +47,14 @@ public class ErrorHandler {
         ErrorInfo errorInfo = new ErrorInfo(HttpStatus.BAD_REQUEST.value(), e.getMessage() , request.getRequestURI());
         return new ResponseEntity<>(errorInfo, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    public ResponseEntity<ErrorInfo> element_relations (HttpServletRequest request, SQLIntegrityConstraintViolationException e){ ;
+        ErrorInfo errorInfo = new ErrorInfo(HttpStatus.BAD_REQUEST.value(), "No se puede eliminar usuarios con citas" , request.getRequestURI());
+        return new ResponseEntity<>(errorInfo, HttpStatus.BAD_REQUEST);
+    }
+
+
+
 
 }

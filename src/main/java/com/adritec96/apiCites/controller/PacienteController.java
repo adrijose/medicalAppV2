@@ -1,6 +1,7 @@
 package com.adritec96.apiCites.controller;
 
 
+import com.adritec96.apiCites.Share.ErrorInfo;
 import com.adritec96.apiCites.Share.NotFound;
 import com.adritec96.apiCites.dto.PacienteRequest;
 import com.adritec96.apiCites.dto.PacienteResponse;
@@ -44,7 +45,7 @@ public class PacienteController {
             pacienteService.delete(id);
             return ResponseEntity.ok().build();
         }catch (IllegalArgumentException ex){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body( new ErrorInfo(400,"Id no valido", null) );
         }
     }
 
