@@ -37,46 +37,53 @@ class PacienteControllerTest {
 
     @Test
     void getAll() throws Exception {
+        // Mock data
         List<PacienteResponse> response = new ArrayList<>();
         for(int i=0;i<5;i++) response.add( PacientePrototype.createResponse() );
-
-        Mockito.when( pacienteService.getAll() ).thenReturn(response);
-
+        // Mock Response
         Gson gson = new Gson();
         String responseJson = gson.toJson(response);
-
+        // Mock Repository
+        Mockito.when( pacienteService.getAll() ).thenReturn(response);
+        // Test & Verify
         this.mockMvc.perform(
                 MockMvcRequestBuilders.get("/pacientes")
         ).andExpect(status().isOk())
-        .andExpect(content().json(responseJson));
+                .andExpect(content().json(responseJson));
+
+
+
     }
 
     @Test
     void getById() throws Exception {
-            PacienteResponse response = PacientePrototype.createResponse();
+        // Mock data
+        PacienteResponse response = PacientePrototype.createResponse();
+        // Mock Repository
+        Mockito.when( pacienteService.getById(response.getId()) ).thenReturn(response);
+        // Test & Verify
+        this.mockMvc.perform(
+                MockMvcRequestBuilders.get("/pacientes/"+response.getId() )
+                        .contentType(MediaType.APPLICATION_JSON)
+        ).andExpect(status().isOk());
 
-            Mockito.when( pacienteService.getById(response.getId()) ).thenReturn(response);
 
-            this.mockMvc.perform(
-                    MockMvcRequestBuilders.get("/pacientes/"+response.getId() )
-                            .contentType(MediaType.APPLICATION_JSON)
-            ).andExpect(status().isOk());
 
     }
 
     @Test
     void it_should_return_created_paciente() throws Exception {
-        PacienteRequest request = PacientePrototype.createRequest();
-
-        Paciente paciente = request.toModel();
-        PacienteResponse response = PacienteResponse.toResponse(paciente);
-
-        Mockito.when( pacienteService.save(request) ).thenReturn( response );
-
         Gson gson = new Gson();
+        // Mock data
+        PacienteRequest request = PacientePrototype.createRequest();
+        Paciente paciente = request.toModel();
         String requestJson = gson.toJson(request);
+        // Mock Response
+        PacienteResponse response = PacienteResponse.toResponse(paciente);
         String responseJson = gson.toJson(response);
-
+        // Mock Repository
+        Mockito.when( pacienteService.save(request) ).thenReturn( response );
+        // Test & Verify
         this.mockMvc.perform(
                 MockMvcRequestBuilders
                         .post("/pacientes")
@@ -84,12 +91,12 @@ class PacienteControllerTest {
                         .content( requestJson )
         ).andExpect(status().isCreated())
         .andExpect( content().json(responseJson) );
-
     }
 
 
-
-
-
-
 }
+
+        // Mock data
+        // Mock Repository
+        // Mock Response
+        // Test & Verify

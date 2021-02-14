@@ -39,10 +39,11 @@ class MedicoServiceImplTest {
         // Mock Repository
         Mockito.when( medicoRepository.findById( mockMedico.getId()) )
                 .thenReturn( Optional.of(mockMedico) );
-
+        // Test
         MedicoResponse result = medicoService.getById(mockMedico.getId());
+        // Mock Response
         MedicoResponse expected = MedicoResponse.toResponse(mockMedico);
-
+        // Verify
         Assertions.assertEquals(result,expected);
     }
 
@@ -51,27 +52,28 @@ class MedicoServiceImplTest {
         // Mock data
         MedicoRequest request = MedicoPrototype.createRequest();
         Medico mockMedico = request.toModel();
-
         // Mock Repository
         Mockito.when( medicoRepository.save(mockMedico) ).thenReturn( mockMedico );
-
-        // TEST
+        // Test
         MedicoResponse result = medicoService.save(request);
+        // Mock Response
         MedicoResponse expected = MedicoResponse.toResponse(mockMedico);
-
-        // Comprobamos que esta guardado en la BD
-        Mockito.verify(medicoRepository).save(mockMedico);
-        // Comprobamos que devuelve el objeto creado.
-        Assertions.assertEquals(result,expected);
+        // Verify
+        Mockito.verify(medicoRepository).save(mockMedico); // Check save in BD
+        Assertions.assertEquals(result,expected); // Check return
     }
 
     @Test
     void delete() {
         // Mock data
         Medico mockMedico = MedicoPrototype.create( new ArrayList() );
-
+        // Mock Repository
+        // Test
         medicoService.delete( mockMedico.getId() );
+        // Mock Response
+        // Verify
         Mockito.verify(medicoRepository).deleteById(mockMedico.getId());
+
     }
 
     @Test
@@ -81,11 +83,12 @@ class MedicoServiceImplTest {
         for(int i=0; i<6; i++) mockListMedicos.add( MedicoPrototype.create( new ArrayList() ) );
         // Mock Repository
         Mockito.when( medicoRepository.findAll() ).thenReturn(mockListMedicos);
-
+        // Test
         List<MedicoResponse> result = medicoService.getAll();
+        // Mock Response
         List<MedicoResponse> expected = mockListMedicos.stream().map(MedicoResponse::toResponse).collect(Collectors.toList());
-
-        Assertions.assertEquals(result,expected);
+        // Verify
+        Assertions.assertEquals(result,expected); // Check return
     }
 
     @Test
@@ -93,20 +96,21 @@ class MedicoServiceImplTest {
         // Mock data
         Paciente mockPaciente = PacientePrototype.create( new ArrayList() );
         Medico mockMedico = MedicoPrototype.create( new ArrayList() );
-
-        // Mock repository
-        Mockito.when( pacienteRepository.findById(mockPaciente.getId()) )
-                .thenReturn(Optional.of(mockPaciente) );
+        // Mock Repository
         Mockito.when( medicoRepository.findById(mockMedico.getId() ) )
                 .thenReturn( Optional.of(mockMedico) );
         Mockito.when( pacienteRepository.save(mockPaciente) )
                 .thenReturn(mockPaciente);
+        Mockito.when( pacienteRepository.findById(mockPaciente.getId()) )
+                .thenReturn(Optional.of(mockPaciente) );
         Mockito.when( medicoRepository.save(mockMedico) )
                 .thenReturn(mockMedico);
+        // Mock Response
 
-        // TEST
+        // Test
         medicoService.asignarPaciente(mockMedico.getId(),mockPaciente.getId());
 
+        // Verify
         // Comprobar que se han asignado correctamente
         Assertions.assertEquals(mockMedico.getPacientes().contains(mockPaciente), true);
         Assertions.assertEquals(mockPaciente.getMedicos().contains(mockMedico), true);
@@ -115,3 +119,9 @@ class MedicoServiceImplTest {
         Mockito.verify(pacienteRepository).save(mockPaciente);
     }
 }
+
+        // Mock data
+        // Mock Repository
+        // Mock Response
+        // Test
+        // Verify
