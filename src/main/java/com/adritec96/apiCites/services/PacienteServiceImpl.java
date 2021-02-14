@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.*;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -37,6 +38,23 @@ public class PacienteServiceImpl implements PacienteService {
     }
 
     @Override
+    public PacienteResponse edit(PacienteRequest paciente, int id) throws NotFound {
+        Optional<Paciente> oPaciente = pacienteRepository.findById(id);
+        if(!oPaciente.isPresent()) throw new NotFound("No existe el paciente con id:"+id);
+        Paciente pacienteMod = oPaciente.get();
+        pacienteMod.setNombre(paciente.getNombre());
+        pacienteMod.setApellidos(paciente.getApellidos());
+        pacienteMod.setUsuario(paciente.getUsuario());
+        pacienteMod.setClave(paciente.getClave());
+        pacienteMod.setNns(paciente.getNns());
+        pacienteMod.setNumTarjeta(paciente.getNumTarjeta());
+        pacienteMod.setTelefono( paciente.getTelefono() );
+        pacienteMod.setDireccion(paciente.getDireccion());
+        return PacienteResponse.toResponse( pacienteRepository.save(pacienteMod) );
+    }
+
+
+    @Override
     @Transactional
     public PacienteResponse save(PacienteRequest paciente) {
         Paciente nuevoPaciente = paciente.toModel();
@@ -45,7 +63,7 @@ public class PacienteServiceImpl implements PacienteService {
 
     @Override
     @Transactional
-    public void delete(int id) {
+    public void delete(int id) throws IllegalArgumentException {
         pacienteRepository.deleteById(id);
     }
 

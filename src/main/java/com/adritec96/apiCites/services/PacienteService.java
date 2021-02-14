@@ -12,6 +12,7 @@ public interface PacienteService {
     PacienteResponse save(PacienteRequest medico);
     void delete(int id);
     List<PacienteResponse> getAll();
+    PacienteResponse edit(PacienteRequest paciente, int id) throws NotFound;
 
 }
 

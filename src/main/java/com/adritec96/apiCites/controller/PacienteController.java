@@ -33,4 +33,20 @@ public class PacienteController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<?> edit (@RequestBody PacienteRequest paciente, @PathVariable int id) throws NotFound {
+        return ResponseEntity.status(HttpStatus.CREATED).body( pacienteService.edit(paciente,id) );
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete (@PathVariable int id) throws IllegalArgumentException {
+        try{
+            pacienteService.delete(id);
+            return ResponseEntity.ok().build();
+        }catch (IllegalArgumentException ex){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+    }
+
+
 }
