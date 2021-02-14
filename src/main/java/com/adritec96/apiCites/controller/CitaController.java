@@ -42,8 +42,7 @@ public class CitaController{
 
     @PostMapping
     public ResponseEntity<?> create(@RequestBody CitaRequest cita, @RequestParam int idMedico, @RequestParam int idPaciente)  {
-         citaService.save(cita,idMedico,idPaciente);
-         return ResponseEntity.status(HttpStatus.CREATED).build();
+         return ResponseEntity.status(HttpStatus.CREATED).body( citaService.save(cita,idMedico,idPaciente) );
     }
 
 

@@ -17,8 +17,8 @@ public class DiagnosticoController {
     private DiagnosticoService diagnosticoService;
 
     @PostMapping("/{idCita}")
-    public ResponseEntity<?> create (@RequestBody DiagnosticoRequest diagnostico, @PathVariable int idCita){
-        if( diagnostico == null || idCita <= 0 ) return ResponseEntity.badRequest().build();
+    public ResponseEntity<?> create (@RequestBody DiagnosticoRequest diagnostico, @PathVariable int idCita) throws NotFound {
+        if( diagnostico == null || idCita <= 0 ) throw new NotFound("Diagnostico o idCita incorrecto");
         return ResponseEntity.status(HttpStatus.CREATED).body( diagnosticoService.save(diagnostico,idCita) );
     }
 
