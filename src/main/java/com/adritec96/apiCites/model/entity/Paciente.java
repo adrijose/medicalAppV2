@@ -85,7 +85,8 @@ public class Paciente extends Usuario implements Serializable {
                 ", numTarjeta='" + numTarjeta + '\'' +
                 ", telefono='" + telefono + '\'' +
                 ", direccion='" + direccion + '\'' +
-                ", medicos=" + medicos +
                 '}';
     }
+
+
 }

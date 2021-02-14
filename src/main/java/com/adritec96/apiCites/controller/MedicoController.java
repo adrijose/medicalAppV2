@@ -17,22 +17,25 @@ public class MedicoController {
     @Autowired
     private PacienteService pacienteService;
 
-    @PostMapping
-    public ResponseEntity<?> create (@RequestBody MedicoRequest medico){
-        medicoService.save(medico);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
-    }
-
     @GetMapping
     public ResponseEntity<?> getAll (){
         return ResponseEntity.status(HttpStatus.OK).body(medicoService.getAll());
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<?> read (@PathVariable int id){
         MedicoResponse medicoResponse = medicoService.getById(id);
         return ResponseEntity.ok(medicoResponse);
     }
+
+    @PostMapping
+    public ResponseEntity<?> create (@RequestBody MedicoRequest medico){
+        medicoService.save(medico);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+
 
     @PutMapping("/{idMedico}/addPaciente")
     public ResponseEntity<?> addPacciente (@PathVariable int idMedico, @RequestParam int id){

@@ -3,14 +3,12 @@ package com.adritec96.apiCites.services;
 import com.adritec96.apiCites.dto.MedicoRequest;
 import com.adritec96.apiCites.dto.MedicoResponse;
 import com.adritec96.apiCites.model.entity.Medico;
-import com.adritec96.apiCites.model.entity.MedicoTest;
+import com.adritec96.apiCites.model.entity.MedicoPrototype;
 import com.adritec96.apiCites.model.entity.Paciente;
-import com.adritec96.apiCites.model.entity.PacienteTest;
+import com.adritec96.apiCites.model.entity.PacientePrototype;
 import com.adritec96.apiCites.repository.MedicoRepository;
 import com.adritec96.apiCites.repository.PacienteRepository;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -22,8 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class MedicoServiceImplTest {
@@ -39,7 +35,7 @@ class MedicoServiceImplTest {
     @Test
     void getById() {
         // Mock data
-        Medico mockMedico = MedicoTest.create( new ArrayList() );
+        Medico mockMedico = MedicoPrototype.create( new ArrayList() );
         // Mock Repository
         Mockito.when( medicoRepository.findById( mockMedico.getId()) )
                 .thenReturn( Optional.of(mockMedico) );
@@ -53,7 +49,7 @@ class MedicoServiceImplTest {
     @Test
     void save() {
         // Mock data
-        MedicoRequest request = MedicoTest.createRequest();
+        MedicoRequest request = MedicoPrototype.createRequest();
 
         Medico mockMedico = request.toModel();
 
@@ -70,7 +66,7 @@ class MedicoServiceImplTest {
     @Test
     void delete() {
         // Mock data
-        Medico mockMedico = MedicoTest.create( new ArrayList() );
+        Medico mockMedico = MedicoPrototype.create( new ArrayList() );
 
         medicoService.delete( mockMedico.getId() );
         Mockito.verify(medicoRepository).deleteById(mockMedico.getId());
@@ -80,7 +76,7 @@ class MedicoServiceImplTest {
     void getAll() {
         // Mock data
         List<Medico> mockListMedicos = new ArrayList<>();
-        for(int i=0; i<6; i++) mockListMedicos.add( MedicoTest.create( new ArrayList() ) );
+        for(int i=0; i<6; i++) mockListMedicos.add( MedicoPrototype.create( new ArrayList() ) );
         // Mock Repository
         Mockito.when( medicoRepository.findAll() ).thenReturn(mockListMedicos);
 
@@ -93,8 +89,9 @@ class MedicoServiceImplTest {
     @Test
     void asignarPaciente() {
         // Mock data
-        Paciente mockPaciente = PacienteTest.create( new ArrayList() );
-        Medico mockMedico = MedicoTest.create( new ArrayList() );
+        Paciente mockPaciente = PacientePrototype.create( new ArrayList() );
+        Medico mockMedico = MedicoPrototype.create( new ArrayList() );
+
         // Mock repository
         Mockito.when( pacienteRepository.findById(mockPaciente.getId()) )
                 .thenReturn(Optional.of(mockPaciente) );
@@ -107,8 +104,8 @@ class MedicoServiceImplTest {
 
         medicoService.asignarPaciente(mockMedico.getId(),mockPaciente.getId());
 
-
-
+        Assertions.assertEquals(mockMedico.getPacientes().contains(mockPaciente), true);
+        Assertions.assertEquals(mockPaciente.getMedicos().contains(mockMedico), true);
 
     }
 }

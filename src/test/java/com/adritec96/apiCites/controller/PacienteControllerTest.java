@@ -3,7 +3,7 @@ package com.adritec96.apiCites.controller;
 import com.adritec96.apiCites.dto.PacienteRequest;
 import com.adritec96.apiCites.dto.PacienteResponse;
 import com.adritec96.apiCites.model.entity.Paciente;
-import com.adritec96.apiCites.model.entity.PacienteTest;
+import com.adritec96.apiCites.model.entity.PacientePrototype;
 import com.adritec96.apiCites.services.PacienteServiceImpl;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.Test;
@@ -21,7 +21,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -38,21 +37,23 @@ class PacienteControllerTest {
 
     @Test
     void getAll() throws Exception {
-        List<PacienteResponse> pacientes = new ArrayList<>();
-        for(int i=0;i<5;i++) pacientes.add( PacienteResponse.toResponse(PacienteTest.create(new ArrayList()) ) );
+        List<PacienteResponse> response = new ArrayList<>();
+        for(int i=0;i<5;i++) response.add( PacientePrototype.createResponse() );
 
-        Mockito.when( pacienteService.getAll() ).thenReturn(pacientes);
+        Mockito.when( pacienteService.getAll() ).thenReturn(response);
+
+        Gson gson = new Gson();
+        String responseJson = gson.toJson(response);
 
         this.mockMvc.perform(
                 MockMvcRequestBuilders.get("/pacientes")
-                .contentType(MediaType.APPLICATION_JSON)
-                //.content()
-        ).andExpect(status().isOk());
+        ).andExpect(status().isOk())
+        .andExpect(content().json(responseJson));
     }
 
     @Test
     void getById() throws Exception {
-            PacienteResponse response = PacienteResponse.toResponse( PacienteTest.create( new ArrayList() ) );
+            PacienteResponse response = PacientePrototype.createResponse();
 
             Mockito.when( pacienteService.getById(response.getId()) ).thenReturn(response);
 
@@ -65,15 +66,7 @@ class PacienteControllerTest {
 
     @Test
     void it_should_return_created_paciente() throws Exception {
-        PacienteRequest request = new PacienteRequest();
-        request.setNombre("pepito");
-        request.setApellidos("ramirez");
-        request.setUsuario("pepe22");
-        request.setClave("325322");
-        request.setNns("FSAIKGSAI");
-        request.setNumTarjeta("523523253");
-        request.setTelefono("611611611");
-        request.setDireccion("calle de la pasion");
+        PacienteRequest request = PacientePrototype.createRequest();
 
         Paciente paciente = request.toModel();
         PacienteResponse response = PacienteResponse.toResponse(paciente);

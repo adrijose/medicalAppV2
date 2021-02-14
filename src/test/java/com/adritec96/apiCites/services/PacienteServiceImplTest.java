@@ -3,11 +3,9 @@ package com.adritec96.apiCites.services;
 import com.adritec96.apiCites.dto.PacienteRequest;
 import com.adritec96.apiCites.dto.PacienteResponse;
 import com.adritec96.apiCites.model.entity.Paciente;
-import com.adritec96.apiCites.model.entity.PacienteTest;
+import com.adritec96.apiCites.model.entity.PacientePrototype;
 import com.adritec96.apiCites.repository.PacienteRepository;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -19,8 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class PacienteServiceImplTest {
@@ -34,7 +30,7 @@ class PacienteServiceImplTest {
     @Test
     void getById() {
         // Mock Data
-        Paciente mockPaciente = PacienteTest.create( new ArrayList() );
+        Paciente mockPaciente = PacientePrototype.create( new ArrayList() );
         // Mock Repository
         Mockito.when( pacienteRepository.findById(mockPaciente.getId()) )
                 .thenReturn( Optional.of(mockPaciente) );
@@ -49,7 +45,7 @@ class PacienteServiceImplTest {
     void getAll() {
         // Mock Data
         List<Paciente> mockPacientes = new ArrayList<>();
-        for(int i=0; i<5; i++) mockPacientes.add( PacienteTest.create( new ArrayList() ) );
+        for(int i=0; i<5; i++) mockPacientes.add( PacientePrototype.create( new ArrayList() ) );
         // Mock Repository
         Mockito.when( pacienteRepository.findAll() )
                 .thenReturn( mockPacientes );
@@ -63,7 +59,7 @@ class PacienteServiceImplTest {
     @Test
     void when_save_paciente_it_should_return_pacient() {
         // Mock Data
-        PacienteRequest request = PacienteTest.createRequest();
+        PacienteRequest request = PacientePrototype.createRequest();
         Paciente model = request.toModel();
 
         // Mock Repository
@@ -79,7 +75,7 @@ class PacienteServiceImplTest {
 
     @Test
     void delete() {
-        Paciente mockPaciente = PacienteTest.create( new ArrayList() );
+        Paciente mockPaciente = PacientePrototype.create( new ArrayList() );
         pacienteService.delete( mockPaciente.getId() );
         Mockito.verify(pacienteRepository).deleteById(mockPaciente.getId());
     }
