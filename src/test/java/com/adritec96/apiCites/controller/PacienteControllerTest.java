@@ -2,6 +2,7 @@ package com.adritec96.apiCites.controller;
 
 import com.adritec96.apiCites.dto.PacienteRequest;
 import com.adritec96.apiCites.dto.PacienteResponse;
+import com.adritec96.apiCites.model.entity.Paciente;
 import com.adritec96.apiCites.model.entity.PacientePrototype;
 import com.adritec96.apiCites.services.PacienteServiceImpl;
 import com.google.gson.Gson;
@@ -19,6 +20,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -82,6 +84,20 @@ class PacienteControllerTest {
                         .content( requestJson ))
                 .andExpect(status().isCreated())
                 .andExpect( content().json(responseJson) );
+    }
+
+    @Test
+    void it_should_return_ok_when_delete_paciente() throws Exception {
+        // Mock data
+        Paciente mokPaciente = PacientePrototype.create( new ArrayList() );
+        // Mock Response
+        // Mock Repository
+
+        // Test & Verify
+        this.mockMvc.perform(
+                MockMvcRequestBuilders
+                        .delete("/pacientes/"+mokPaciente.getId()) )
+                .andExpect(status().isOk());
     }
 
 }
