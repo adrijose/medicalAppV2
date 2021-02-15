@@ -50,7 +50,7 @@ public class ErrorHandler {
 
     @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
     public ResponseEntity<ErrorInfo> element_relations (HttpServletRequest request, SQLIntegrityConstraintViolationException e){ ;
-        ErrorInfo errorInfo = new ErrorInfo(HttpStatus.BAD_REQUEST.value(), "No se puede eliminar usuarios con citas" , request.getRequestURI());
+        ErrorInfo errorInfo = new ErrorInfo(HttpStatus.BAD_REQUEST.value(), e.getMessage() , request.getRequestURI());
         return new ResponseEntity<>(errorInfo, HttpStatus.BAD_REQUEST);
     }
 

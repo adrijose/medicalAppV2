@@ -38,6 +38,15 @@ public class PacienteServiceImpl implements PacienteService {
     }
 
     @Override
+    @Transactional( readOnly = true )
+    public PacienteResponse getByNns( String nns) throws NotFound {
+        Paciente paciente = pacienteRepository.findNns(nns);
+        if( paciente == null ) throw new NotFound("No existe paciente con nns:" + nns);
+        return PacienteResponse.toResponse(paciente);
+    }
+
+
+    @Override
     public PacienteResponse edit(PacienteRequest paciente, int id) throws NotFound {
         Optional<Paciente> oPaciente = pacienteRepository.findById(id);
         if(!oPaciente.isPresent()) throw new NotFound("No existe el paciente con id:"+id);

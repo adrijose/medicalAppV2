@@ -49,5 +49,11 @@ public class PacienteController {
         }
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<?> obtenerConNNS ( @RequestParam String nns  ) throws NotFound {
+        return ResponseEntity.ok( pacienteService.getByNns(nns) );
+    }
+
+
 
 }

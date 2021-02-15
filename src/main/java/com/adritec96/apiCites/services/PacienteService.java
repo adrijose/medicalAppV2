@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface PacienteService {
     PacienteResponse getById(int id) throws NotFound;
+    PacienteResponse getByNns( String nns) throws NotFound;
     PacienteResponse save(PacienteRequest medico);
     void delete(int id);
     List<PacienteResponse> getAll();
