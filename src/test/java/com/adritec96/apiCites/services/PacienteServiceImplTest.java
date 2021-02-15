@@ -44,7 +44,7 @@ class PacienteServiceImplTest {
     }
 
     @Test
-    void when_bad_id_should_return_NotFound() throws Exception {
+    void savePacienteThrowNotFoundExceptionWhenIdIsNotValid() throws Exception {
         // Mock data
         int badId = 0;
         // Mock Repository
