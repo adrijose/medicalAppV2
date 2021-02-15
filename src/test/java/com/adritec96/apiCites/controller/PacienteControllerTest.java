@@ -1,5 +1,6 @@
 package com.adritec96.apiCites.controller;
 
+import com.adritec96.apiCites.Share.NotFound;
 import com.adritec96.apiCites.dto.PacienteRequest;
 import com.adritec96.apiCites.dto.PacienteResponse;
 import com.adritec96.apiCites.model.entity.Paciente;
@@ -20,7 +21,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -63,6 +63,19 @@ class PacienteControllerTest {
                 MockMvcRequestBuilders.get("/pacientes/"+response.getId() )
                         .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(status().isOk());
+
+    }
+
+    @Test
+    void getByIdWhouldNotFoundStatusWhenNoValidId() throws Exception {
+        // Mock data
+        int noValidId = 99999;
+        // Mock Repository
+        Mockito.when(pacienteService.getById(noValidId)).thenThrow(new NotFound("No se encontró el paciente "));
+        // Test & Verify
+        this.mockMvc.perform(
+                MockMvcRequestBuilders.get("/pacientes/"+noValidId )
+        ).andExpect(status().isNotFound());
 
     }
 

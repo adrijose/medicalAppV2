@@ -24,7 +24,7 @@ public class PacienteController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getById (@PathVariable int id) throws Exception {
+    public ResponseEntity<?> getById (@PathVariable int id) throws NotFound {
         return ResponseEntity.ok( pacienteService.getById(id) );
     }
 
